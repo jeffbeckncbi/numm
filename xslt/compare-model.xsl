@@ -12,7 +12,9 @@
         indent="yes"
 		  />
 
-    <xsl:variable name="refdoc" select="doc('jats1.xml')"/>
+    <xsl:variable name="refpath" select="'https://raw.githubusercontent.com/jeffbeckncbi/numm/master/models/'"/>
+    <xsl:variable name="reffile" select="'jats1.xml'"/>
+    <xsl:variable name="refdoc" select="doc(concat($refpath,$reffile))"/>
     <xsl:variable name="ref" select="$refdoc/numm/structures"/>
 
     <xsl:variable name="refmodel" select="$refdoc/numm/head/model"/>
