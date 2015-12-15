@@ -5,6 +5,7 @@
 </head>
   <structures>
 <structure name="abbr" type="attribute"/>
+    <structure name="newatt" type="attribute" att-type="IDREF"/> <!-- modified -->
    <structure name="abstract-type" type="attribute"/>
    <structure name="accept" type="attribute"/>
    <structure name="accept-language" type="attribute"/>
@@ -202,7 +203,7 @@
    <structure name="bio" type="element" section-model="yes" element-only="yes"
               points-with-rid="yes"/>
    <structure name="body" type="element" section-model="yes"
-              element-only="yes" superstructure="yes"/> 
+              element-only="yes"/> <!-- should be superstructure -->
    <structure name="bold" type="element" element-only="no"/>
    <structure name="book" type="element" element-only="yes" superstructure="yes"/>
    <structure name="book-back" type="element" element-only="yes" superstructure="yes"/>
@@ -239,7 +240,7 @@
    <structure name="compound-subject" type="element" element-only="yes"/>
    <structure name="compound-subject-part" type="element" element-only="no"/>
    <structure name="conf-acronym" type="element" element-only="no"/>
-   <structure name="conf-date" type="element" element-only="no"/> 
+   <structure name="conf-date" type="element" element-only="no" superstructure="yes"/> <!-- should not be superstructure -->
    <structure name="conf-loc" type="element" element-only="no"/>
    <structure name="conf-name" type="element" element-only="no"/>
    <structure name="conf-num" type="element" element-only="no"/>

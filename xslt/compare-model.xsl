@@ -18,7 +18,8 @@
     <xsl:variable name="ref" select="$refdoc/numm/structures"/>
 
     <xsl:variable name="refmodel" select="$refdoc/numm/head/model"/>
-
+    <xsl:variable name="model" select="/numm/head/model"/>
+    
     <xsl:variable name="element-thead">
         <tr>
             <th>Name</th>
@@ -30,6 +31,48 @@
             <th>Points with<br/>@rid?</th>
         </tr>
     </xsl:variable>
+
+    <xsl:variable name="elements-were-superstructure">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="ss" select="if (@superstructure) then (@superstructure) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and @superstructure='yes' and $ss!='yes' and @type='element']">
+                <li>
+                    <xsl:value-of select="@name"/>
+                    <xsl:text>  was a SUPERSTRUCTURE element in </xsl:text>
+                    <xsl:value-of select="$refmodel"/>
+                    <xsl:text> model but is not any longer.</xsl:text>
+                </li>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="has-elements-were-superstructure" select="if ($elements-were-superstructure/li) then 1 else 0"/>
+
+    <xsl:variable name="elements-became-superstructure">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="ss" select="if (@superstructure) then (@superstructure) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and (not(@superstructure) or @superstructure!='yes') and $ss='yes' and @type='element']">
+                <li>
+                    <xsl:value-of select="@name"/>
+                    <xsl:text> has become a SUPERSTRUCTURE element in </xsl:text>
+                    <xsl:value-of select="/numm/head/model"/>
+                    <xsl:text> model but it was not SUPERSTRUCTURE in </xsl:text>
+                    <xsl:value-of select="$refmodel"/>
+                    <xsl:text>.</xsl:text>
+                </li>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="has-elements-became-superstructure" select="if ($elements-became-superstructure/li) then 1 else 0"/>
+    
+
+
+
+
+
 
 
 	<xsl:template match="numm">
@@ -44,19 +87,56 @@
                     <xsl:text> against </xsl:text>
                     <xsl:value-of select="$refmodel"/>
                 </h1>
+                <h3>Summary</h3>
+                <xsl:choose>
+                    <xsl:when test="$has-elements-were-superstructure =1 or
+                                    $has-elements-became-superstructure=1">
+                        <xsl:value-of select="$model"/>
+                        <xsl:text> IS NOT compatible with </xsl:text>
+                        <xsl:value-of select="$refmodel"/>
+                        <xsl:text>. Details are below.</xsl:text>
+                    </xsl:when>
+                       <xsl:otherwise>
+                           <xsl:value-of select="$model"/>
+                           <xsl:text> is compatible with </xsl:text>
+                           <xsl:value-of select="$refmodel"/>
+                           <xsl:text>. </xsl:text>
+                           
+                       </xsl:otherwise>
+                </xsl:choose>
                 
-                <xsl:call-template name="attribute-tests"/>
+                
+                
+                
+                <!--<xsl:call-template name="attribute-tests"/>-->
                 <xsl:call-template name="element-tests"/>
+                
+                <!-- added items report below -->
+                <h3>Added Structures Are Listed Below</h3>
+                <xsl:call-template name="added-els"/>
+                <xsl:call-template name="added-atts"/>
+                
             </body>
          </html>
 	</xsl:template>
 
     <xsl:template name="attribute-tests">
         <h2>Attribute Tests</h2>
-        <xsl:call-template name="added-atts"/>
         <xsl:call-template name="id-idref"/>
     </xsl:template>
 
+    <xsl:template name="element-tests">
+<!--        <h2>Element Tests</h2>
+-->        <xsl:call-template name="superstructure"/>
+        <!--<xsl:call-template name="role-change"/>
+        <xsl:call-template name="was-el-only"/>
+        <xsl:call-template name="now-el-only"/>-->
+    </xsl:template>
+    
+    
+    
+    
+    
     <xsl:template name="added-atts">
         <div class="added-atts">
             <h4>Added Attributes</h4>
@@ -107,14 +187,6 @@
 
 
 
-    <xsl:template name="element-tests">
-        <h2>Element Tests</h2>
-        <xsl:call-template name="added-els"/>
-        <xsl:call-template name="superstructure"/>
-        <xsl:call-template name="role-change"/>
-        <xsl:call-template name="was-el-only"/>
-        <xsl:call-template name="now-el-only"/>
-    </xsl:template>
     
 
     <xsl:template name="added-els">
@@ -159,48 +231,25 @@
     </xsl:template>
     
     <xsl:template name="superstructure">
+        <xsl:if test="$has-elements-were-superstructure=1 or $has-elements-became-superstructure=1">
         <h3>Superstructure Consistency</h3>
         <div class="id-idref" style="border:top;">
             
-            <h4>Elements from <xsl:value-of select="$refmodel"/> that are no longer "SUPERSTRUCTURE".</h4>  
-            <ul>
-                <xsl:for-each select="structures/structure[@type='element']">
-                    <xsl:sort order="ascending" select="@name"/>
-                    <xsl:variable name="elname" select="@name"/>
-                    <xsl:variable name="ss" select="if (@superstructure) then (@superstructure) else 'NONE'"/>
-                    
-                    <xsl:if test="$ref/structure[@name=$elname and @superstructure='yes' and $ss!='yes' and @type='element']">
-                        <li>
-                            <xsl:value-of select="@name"/>
-                            <xsl:text>  was a SUPERSTRUCTURE element in </xsl:text>
-                            <xsl:value-of select="$refmodel"/>
-                            <xsl:text> model but is not any longer.</xsl:text>
-                        </li>
-                    </xsl:if>
-                </xsl:for-each>
-            </ul>
+            <xsl:if test="$has-elements-were-superstructure=1">
+                <ul>
+                    <xsl:copy-of select="$elements-were-superstructure"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-elements-became-superstructure=1">
+                <ul>
+                    <xsl:copy-of select="$elements-became-superstructure"/>
+                </ul>
+            </xsl:if>
             
-            <h4>Elements from <xsl:value-of select="$refmodel"/> that have become "SUPERSTRUCTURE".</h4>  
-            <ul>
-                <xsl:for-each select="structures/structure[@type='element']">
-                    <xsl:sort order="ascending" select="@name"/>
-                    <xsl:variable name="elname" select="@name"/>
-                    <xsl:variable name="ss" select="if (@superstructure) then (@superstructure) else 'NONE'"/>
-                    
-                    <xsl:if test="$ref/structure[@name=$elname and (not(@superstructure) or @superstructure!='yes') and $ss='yes' and @type='element']">
-                        <li>
-                            <xsl:value-of select="@name"/>
-                            <xsl:text> has become a SUPERSTRUCTURE element in </xsl:text>
-                            <xsl:value-of select="/numm/head/model"/>
-                            <xsl:text> model but it was not SUPERSTRUCTURE in </xsl:text>
-                            <xsl:value-of select="$refmodel"/>
-                            <xsl:text>.</xsl:text>
-                        </li>
-                    </xsl:if>
-                </xsl:for-each>
-            </ul>
+            
+            
         </div>
-        
+        </xsl:if>
     </xsl:template>
     
     
