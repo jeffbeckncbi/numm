@@ -271,7 +271,7 @@
    <structure name="date-in-citation" type="element" element-only="yes"/>
    <structure name="day" type="element" element-only="no"/>
    <structure name="dedication" type="element" element-only="yes" superstructure="yes"/>
-   <structure name="def" type="element" element-only="yes"/>
+   <structure name="def" type="element" element-only="yes"  points-with-rid='yes'/>
    <structure name="def-head" type="element" element-only="no"/>
    <structure name="def-item" type="element" element-only="yes"/>
    <structure name="def-list" type="element" role-in-section="block" element-only="yes"/>

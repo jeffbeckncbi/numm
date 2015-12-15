@@ -4,12 +4,63 @@
       <title>Model Compare</title>
    </head>
    <body>
-      <h1>Comparing BITS 1.0 against JATS 1.1d3</h1>
-      <h3>Summary</h3>BITS 1.0 IS NOT compatible with JATS 1.1d3. Details are below.
+      <h1>Comparing BITS 1.0 Test against JATS 1.1d3</h1>
+      <h3>Summary</h3>BITS 1.0 Test IS NOT compatible with JATS 1.1d3. Details are below.
+      <h3>Attribute Type Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>@continued-from</b> attribute type was "IDREF" but is now "CDATA".
+            </li>
+         </ul>
+      </div>
+      <h3>Superstructure Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;body&gt;</b>  was a SUPERSTRUCTURE element in JATS 1.1d3 model but is not in BITS 1.0 Test.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;conf-date&gt;</b> has become a SUPERSTRUCTURE element in BITS 1.0 Test but it was not SUPERSTRUCTURE in JATS 1.1d3.
+            </li>
+         </ul>
+      </div>
+      <h3>Element Only or #PCDATA/EMPTY Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;pub-date&gt;</b>  had an ELEMENT ONLY model in JATS 1.1d3, but it has a #PCDATA/EMPTY model in BITS 1.0 Test.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;prefix&gt;</b>  had a MIXED or EMPTY model in JATS 1.1d3, but it has an ELEMENT model in BITS 1.0 Test.
+            </li>
+         </ul>
+      </div>
+      <h3>Section Model Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;sec&gt;</b>  had a section model in JATS 1.1d3, but it does not in BITS 1.0 Test.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;rb&gt;</b>  did not have a section model in JATS 1.1d3, but it has a section model in BITS 1.0 Test.
+            </li>
+         </ul>
+      </div>
+      <h3>Alternatives Model Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;alternatives&gt;</b>  was an element that held alternatives in JATS 1.1d3, but it can not in BITS 1.0 Test.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;address&gt;</b>  was not an element that held alternatives in JATS 1.1d3, but holds alternatives in BITS 1.0 Test.
+            </li>
+         </ul>
+      </div>
       <h3>@rid Changes</h3>
       <div class="id-idref" style="border:top;">
          <ul>
-            <li><b>&lt;def&gt;</b>  pointed to another element with @rid in JATS 1.1d3, but the @rid has been removed in BITS 1.0.
+            <li><b>&lt;aff&gt;</b>  pointed to another element with @rid in JATS 1.1d3, but the @rid has been removed in BITS 1.0 Test.
             </li>
          </ul>
       </div>
