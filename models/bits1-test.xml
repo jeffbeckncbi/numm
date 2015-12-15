@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <numm>
   <head>
-<model>BITS 1.0</model>
+<model>BITS 1.0 Test</model>
 </head>
   <structures>
 <structure name="abbr" type="attribute"/>
@@ -410,7 +410,7 @@
    <structure name="publisher-name" type="element" element-only="no"/>
    <structure name="question" type="element" element-only="yes" section-model="yes" points-with-rid="yes" role-in-section="block"/>
    <structure name="question-wrap" type="element" element-only="yes" role-in-section="block"/>
-   <structure name="rb" type="element" element-only="no"/>
+   <structure name="rb" type="element" element-only="no" section-model="yes"/> <!-- changed to section-model -->
    <structure name="ref" type="element" element-only="yes"/>
    <structure name="ref-count" type="element" element-only="no"/>
    <structure name="ref-list" type="element" role-in-section="tail" element-only="yes"/>
@@ -424,8 +424,8 @@
    <structure name="sans-serif" type="element" element-only="no"/>
    <structure name="sc" type="element" element-only="no"/>
    <structure name="season" type="element" element-only="no"/>
-   <structure name="sec" type="element" role-in-section="section" section-model="yes"
-              element-only="yes"/>
+   <structure name="sec" type="element" role-in-section="section" section-model="no"
+              element-only="yes"/> <!-- changed from section model -->
    <structure name="sec-meta" type="element" superstructure="yes" role-in-section="head"
               element-only="yes"/>
    <structure name="see" type="element" points-with-rid="yes" element-only="no"/>

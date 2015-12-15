@@ -154,6 +154,46 @@
     <xsl:variable name="has-became-element-only" select="if ($became-element-only/li) then 1 else 0"/>
 
 
+    <xsl:variable name="was-sec-model">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="sm" select="if (@section-model) then (@section-model) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and @section-model='yes' and ($sm='no' or $sm='NONE') ]">
+                <li>
+                    &nme;
+                    <xsl:text>  had a section model in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but it does not in </xsl:text>
+						  &model;
+						  <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-was-sec-model" select="if ($was-sec-model/li) then 1 else 0"/>
+
+
+    <xsl:variable name="became-sec-model">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="sm" select="if (@section-model) then (@section-model) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and (@section-model='no' or not(@section-model)) and $sm='yes']">
+                <li>
+                    &nme;
+                    <xsl:text>  did not have a section model in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but it has a section model in </xsl:text>
+						  &model;
+						  <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-became-sec-model" select="if ($became-sec-model/li) then 1 else 0"/>
+
+
 
 
 <!-- **************************************************************************************** -->
@@ -243,11 +283,12 @@
     <xsl:template name="element-tests">
         	<xsl:call-template name="superstructure"/>
 			<xsl:call-template name="element-only"/>
+			<xsl:call-template name="section-model"/>
     </xsl:template>
     
     <xsl:template name="superstructure">
         <xsl:if test="$has-elements-were-superstructure=1 or $has-elements-became-superstructure=1">
-        <h3>Superstructure Consistency</h3>
+        <h3>Superstructure Changes</h3>
         <div class="id-idref" style="border:top;">
             <xsl:if test="$has-elements-were-superstructure=1">
                 <ul>
@@ -266,7 +307,7 @@
     
     <xsl:template name="element-only">
         <xsl:if test="$has-was-element-only=1 or $has-became-element-only=1">
-        <h3>Element Only or #PCDATA/EMPTY</h3>
+        <h3>Element Only or #PCDATA/EMPTY Changes</h3>
         <div class="id-idref" style="border:top;">
             <xsl:if test="$has-was-element-only=1">
                 <ul>
@@ -276,6 +317,25 @@
            <xsl:if test="$has-became-element-only=1">
                 <ul>
                     <xsl:copy-of select="$became-element-only"/>
+                </ul>
+            </xsl:if>
+         </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    <xsl:template name="section-model">
+        <xsl:if test="$has-was-sec-model=1 or $has-became-sec-model=1">
+        <h3>Section Model Changes</h3>
+        <div class="id-idref" style="border:top;">
+            <xsl:if test="$has-was-sec-model=1">
+                <ul>
+                    <xsl:copy-of select="$was-sec-model"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-became-sec-model=1">
+                <ul>
+                    <xsl:copy-of select="$became-sec-model"/>
                 </ul>
             </xsl:if>
          </div>
