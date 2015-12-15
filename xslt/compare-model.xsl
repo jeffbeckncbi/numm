@@ -234,6 +234,25 @@
     <xsl:variable name="has-became-alternatives" select="if ($became-alternatives/li) then 1 else 0"/>
 
 
+    <xsl:variable name="had-rid">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="rid" select="if (@points-with-rid) then (@points-with-rid) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and @points-with-rid='yes' and ($rid='no' or $rid='NONE') ]">
+                <li>
+                    &nme;
+                    <xsl:text>  pointed to another element with @rid in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but the @rid has been removed in </xsl:text>
+						  &model;
+						  <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-had-rid" select="if ($had-rid/li) then 1 else 0"/>
+
 
 
 <!-- **************************************************************************************** -->
@@ -258,7 +277,13 @@
                     <xsl:when test="$has-elements-were-superstructure =1 or
                                     $has-elements-became-superstructure=1 or
 												$has-became-element-only=1 or
-												$has-was-element-only">
+												$has-was-element-only or 
+												$has-was-alternatives=1 or 
+												$has-became-alternatives=1 or
+												$has-was-sec-model=1 or 
+												$has-became-sec-model=1 or 
+												$has-had-rid=1 or 
+												$has-attribute-change-type=1">
                         &model;
                         <xsl:text> IS NOT compatible with </xsl:text>
                         &refmodel;
@@ -325,6 +350,7 @@
 			<xsl:call-template name="element-only"/>
 			<xsl:call-template name="section-model"/>
 			<xsl:call-template name="alternatives-model"/>
+			<xsl:call-template name="rid-check"/>
     </xsl:template>
     
     <xsl:template name="superstructure">
@@ -401,11 +427,20 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template name="rid-check">
+        <xsl:if test="$has-had-rid=1">
+        <h3>@rid Changes</h3>
+        <div class="id-idref" style="border:top;">
+            <ul>
+               <xsl:copy-of select="$had-rid"/>
+            </ul>
+        </div>
+        </xsl:if>
+    </xsl:template>
     
     
-	 
-	 
-	 
+    
+
 <!-- **************************************************************************************** -->
 <!-- **************************************************************************************** -->
 <!--                           ADDED STRUCTURES (REPORT ONLY)                                 -->
