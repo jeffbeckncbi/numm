@@ -38,7 +38,7 @@
    <structure name="collection-type" type="attribute"/>
    <structure name="colspan" type="attribute"/>
    <structure name="content-type" type="attribute"/>
-   <structure name="continued-from" type="attribute" att-type="IDREF"/>
+   <structure name="continued-from" type="attribute" att-type="CDATA"/>
    <structure name="contrib-id-type" type="attribute"/>
    <structure name="contrib-type" type="attribute"/>
    <structure name="correct" type="attribute"/>

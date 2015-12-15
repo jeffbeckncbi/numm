@@ -5,7 +5,36 @@
    </head>
    <body>
       <h1>Comparing BITS 1.0 against JATS 1.1d3</h1>
-      <h3>Summary</h3>BITS 1.0 is compatible with JATS 1.1d3. 
+      <h3>Summary</h3>BITS 1.0 IS NOT compatible with JATS 1.1d3. Details are below.
+      <h3>Attribute Type Changes</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>@continued-from</b> attribute type was "IDREF" but is now "CDATA".
+            </li>
+         </ul>
+      </div>
+      <h3>Superstructure Consistency</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;body&gt;</b>  was a SUPERSTRUCTURE element in JATS 1.1d3 model but is not in BITS 1.0.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;conf-date&gt;</b> has become a SUPERSTRUCTURE element in BITS 1.0 but it was not SUPERSTRUCTURE in JATS 1.1d3.
+            </li>
+         </ul>
+      </div>
+      <h3>Element Only or #PCDATA/EMPTY</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>
+            <li><b>&lt;pub-date&gt;</b>  had an ELEMENT ONLY model in JATS 1.1d3, but it has a #PCDATA/EMPTY model in BITS 1.0.
+            </li>
+         </ul>
+         <ul>
+            <li><b>&lt;prefix&gt;</b>  had a MIXED or EMPTY model in JATS 1.1d3, but it has an ELEMENT model in BITS 1.0.
+            </li>
+         </ul>
+      </div>
       <h3>Added Structures Are Listed Below</h3>
       <div class="added-atts">
          <h4>Added Elements</h4>
@@ -515,6 +544,7 @@
             <li>macros</li>
             <li>mode</li>
             <li>nav-pointer-type</li>
+            <li>newatt, Attriute-Type="IDREF"</li>
             <li>parse</li>
             <li>show-in-toc</li>
             <li>sort-key</li>
