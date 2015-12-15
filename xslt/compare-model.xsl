@@ -194,6 +194,46 @@
     <xsl:variable name="has-became-sec-model" select="if ($became-sec-model/li) then 1 else 0"/>
 
 
+    <xsl:variable name="was-alternatives">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="alt" select="if (@alternatives) then (@alternatives) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and @alternatives='yes' and ($alt='no' or $alt='NONE') ]">
+                <li>
+                    &nme;
+                    <xsl:text>  was an element that held alternatives in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but it can not in </xsl:text>
+						  &model;
+						  <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-was-alternatives" select="if ($was-alternatives/li) then 1 else 0"/>
+
+
+    <xsl:variable name="became-alternatives">
+        <xsl:for-each select="numm/structures/structure[@type='element']">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="alt" select="if (@alternatives) then (@alternatives) else 'NONE'"/>
+            <xsl:if test="$ref/structure[@name=$elname and (@alternatives='no' or not(@alternatives)) and $alt='yes']">
+                <li>
+                    &nme;
+                    <xsl:text>  was not an element that held alternatives in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but holds alternatives in </xsl:text>
+						  &model;
+						  <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-became-alternatives" select="if ($became-alternatives/li) then 1 else 0"/>
+
+
 
 
 <!-- **************************************************************************************** -->
@@ -284,6 +324,7 @@
         	<xsl:call-template name="superstructure"/>
 			<xsl:call-template name="element-only"/>
 			<xsl:call-template name="section-model"/>
+			<xsl:call-template name="alternatives-model"/>
     </xsl:template>
     
     <xsl:template name="superstructure">
@@ -336,6 +377,24 @@
            <xsl:if test="$has-became-sec-model=1">
                 <ul>
                     <xsl:copy-of select="$became-sec-model"/>
+                </ul>
+            </xsl:if>
+         </div>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="alternatives-model">
+        <xsl:if test="$has-was-alternatives=1 or $has-became-alternatives=1">
+        <h3>Alternatives Model Changes</h3>
+        <div class="id-idref" style="border:top;">
+            <xsl:if test="$has-was-alternatives=1">
+                <ul>
+                    <xsl:copy-of select="$was-alternatives"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-became-alternatives=1">
+                <ul>
+                    <xsl:copy-of select="$became-alternatives"/>
                 </ul>
             </xsl:if>
          </div>

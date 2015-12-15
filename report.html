@@ -4,46 +4,524 @@
       <title>Model Compare</title>
    </head>
    <body>
-      <h1>Comparing BITS 1.0 Test against JATS 1.1d3</h1>
-      <h3>Summary</h3>BITS 1.0 Test IS NOT compatible with JATS 1.1d3. Details are below.
-      <h3>Attribute Type Changes</h3>
-      <div class="id-idref" style="border:top;">
-         <ul>
-            <li><b>@continued-from</b> attribute type was "IDREF" but is now "CDATA".
-            </li>
-         </ul>
+      <h1>Comparing BITS 1.0 against JATS 1.1d3</h1>
+      <h3>Summary</h3>BITS 1.0 is compatible with JATS 1.1d3. 
+      <h3>Added Structures Are Listed Below</h3>
+      <div class="added-atts">
+         <h4>Added Elements</h4>
+         <table border="yes">
+            <tr>
+               <th>Name</th>
+               <th>Superstructure<br>Element?
+               </th>
+               <th>Element Content Only<br>or #PCDATA/EMPTY
+               </th>
+               <th>Role in &lt;sec&gt;</th>
+               <th>Section Model?</th>
+               <th>Alternatives<br>Wrapper?
+               </th>
+               <th>Points with<br>@rid?
+               </th>
+            </tr>
+            <tr>
+               <td><b>&lt;answer&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td>block</td>
+               <td>Yes</td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;answer-set&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td>block</td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;book&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-back&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-body&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-id&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-meta&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-part&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-part-id&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-part-meta&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-part-wrapper&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-title&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-title-group&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-volume-id&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;book-volume-number&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;collection-id&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;collection-meta&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;dedication&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;event&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;event-desc&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;explanation&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;foreword&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;front-matter&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;front-matter-part&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index-div&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index-entry&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index-group&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index-term&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;index-term-range-end&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;named-book-part-body&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td>Yes</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;nav-pointer&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;nav-pointer-group&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;preface&gt;</b></td>
+               <td>Superstructure</td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;pub-history&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;question&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td>block</td>
+               <td>Yes</td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;question-wrap&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td>block</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;see&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;see-also&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;see-also-entry&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;see-entry&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td>Has @rid</td>
+            </tr>
+            <tr>
+               <td><b>&lt;toc&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;toc-div&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;toc-entry&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;toc-group&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;volume-in-collection&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;volume-number&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;volume-title&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;xi:fallback&gt;</b></td>
+               <td></td>
+               <td>#PCDATA/EMPTY</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td><b>&lt;xi:include&gt;</b></td>
+               <td></td>
+               <td>Element Content</td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <th>Name</th>
+               <th>Superstructure<br>Element?
+               </th>
+               <th>Element Content Only<br>or #PCDATA/EMPTY
+               </th>
+               <th>Role in &lt;sec&gt;</th>
+               <th>Section Model?</th>
+               <th>Alternatives<br>Wrapper?
+               </th>
+               <th>Points with<br>@rid?
+               </th>
+            </tr>
+         </table>
       </div>
-      <h3>Superstructure Changes</h3>
-      <div class="id-idref" style="border:top;">
+      <div class="added-atts">
+         <h4>Added Attributes</h4>
          <ul>
-            <li><b>&lt;body&gt;</b>  was a SUPERSTRUCTURE element in JATS 1.1d3 model but is not in BITS 1.0 Test.
-            </li>
-         </ul>
-         <ul>
-            <li><b>&lt;conf-date&gt;</b> has become a SUPERSTRUCTURE element in BITS 1.0 Test but it was not SUPERSTRUCTURE in JATS 1.1d3.
-            </li>
-         </ul>
-      </div>
-      <h3>Element Only or #PCDATA/EMPTY Changes</h3>
-      <div class="id-idref" style="border:top;">
-         <ul>
-            <li><b>&lt;pub-date&gt;</b>  had an ELEMENT ONLY model in JATS 1.1d3, but it has a #PCDATA/EMPTY model in BITS 1.0 Test.
-            </li>
-         </ul>
-         <ul>
-            <li><b>&lt;prefix&gt;</b>  had a MIXED or EMPTY model in JATS 1.1d3, but it has an ELEMENT model in BITS 1.0 Test.
-            </li>
-         </ul>
-      </div>
-      <h3>Section Model Changes</h3>
-      <div class="id-idref" style="border:top;">
-         <ul>
-            <li><b>&lt;sec&gt;</b>  had a section model in JATS 1.1d3, but it does not in BITS 1.0 Test.
-            </li>
-         </ul>
-         <ul>
-            <li><b>&lt;rb&gt;</b>  did not have a section model in JATS 1.1d3, but it has a section model in BITS 1.0 Test.
-            </li>
+            <li>accept</li>
+            <li>accept-language</li>
+            <li>altimg</li>
+            <li>alttext</li>
+            <li>answer-type</li>
+            <li>audience</li>
+            <li>baseline</li>
+            <li>book-id-type</li>
+            <li>book-part-id-type</li>
+            <li>book-part-type</li>
+            <li>book-type</li>
+            <li>collection-id-type</li>
+            <li>collection-type</li>
+            <li>correct</li>
+            <li>display-as</li>
+            <li>encoding</li>
+            <li>event-type</li>
+            <li>from-where</li>
+            <li>href</li>
+            <li>index-type</li>
+            <li>indexed</li>
+            <li>macros</li>
+            <li>mode</li>
+            <li>nav-pointer-type</li>
+            <li>parse</li>
+            <li>show-in-toc</li>
+            <li>sort-key</li>
+            <li>suppress</li>
+            <li>xmlns:xi</li>
+            <li>xpointer</li>
+            <li>xsi:schemaLocation</li>
          </ul>
       </div>
    </body>

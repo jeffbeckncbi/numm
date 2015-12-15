@@ -180,9 +180,9 @@
               element-only="yes"/>
    <structure name="addr-line" type="element" element-only="no"/>
    <structure name="address" type="element" role-in-section="block" element-only="yes" alternatives="yes"/> <!-- should not be alternatives -->
-   <structure name="aff" type="element" element-only="no" points-with-rid="yes"/>
+   <structure name="aff" type="element" element-only="no" /> <!-- removed points-with-rid="yes" -->
    <structure name="aff-alternatives" type="element" alternatives="yes" element-only="yes"/>
-   <structure name="alt-text" type="element" element-only="no"/>
+   <structure name="alt-text" type="element" element-only="no" points-with-rid="yes"/>
    <structure name="alt-title" type="element" element-only="no"/>
    <structure name="alternatives" type="element" role-in-section="block"
               element-only="yes"/> <!-- changed from alternatives="yes" -->
