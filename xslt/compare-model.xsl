@@ -59,7 +59,7 @@
                     <xsl:value-of select="@name"/>
                     <xsl:text> has become a SUPERSTRUCTURE element in </xsl:text>
                     <xsl:value-of select="/numm/head/model"/>
-                    <xsl:text> model but it was not SUPERSTRUCTURE in </xsl:text>
+                    <xsl:text> but it was not SUPERSTRUCTURE in </xsl:text>
                     <xsl:value-of select="$refmodel"/>
                     <xsl:text>.</xsl:text>
                 </li>
@@ -69,7 +69,40 @@
     <xsl:variable name="has-elements-became-superstructure" select="if ($elements-became-superstructure/li) then 1 else 0"/>
     
 
+	<xsl:variable name="was-element-only">
+		<xsl:for-each select="numm/structures/structure[@type='element']">
+			<xsl:sort order="ascending" select="@name"/>
+			<xsl:variable name="elname" select="@name"/>
+			<xsl:variable name="eo" select="if (@element-only) then (@element-only) else 'NONE'"/>
+			<xsl:if test="$ref/structure[@name=$elname and @element-only='yes' and $eo='no' ]">
+				<li>
+					<xsl:value-of select="@name"/>
+					<xsl:text>  had an ELEMENT ONLY model in </xsl:text>
+					<xsl:value-of select="$refmodel"/>
+					<xsl:text>, but it does not any longer.</xsl:text>
+				</li>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:variable>
+	<xsl:variable name="has-was-element-only" select="if ($was-element-only/li) then 1 else 0"/>
 
+
+	<xsl:variable name="became-element-only">
+		<xsl:for-each select="numm/structures/structure[@type='element']">
+			<xsl:sort order="ascending" select="@name"/>
+			<xsl:variable name="elname" select="@name"/>
+			<xsl:variable name="eo" select="if (@element-only) then (@element-only) else 'NONE'"/>
+			<xsl:if test="$ref/structure[@name=$elname and @element-only='no' and @element-only!=$eo]">
+				<li>
+					<xsl:value-of select="@name"/>
+					<xsl:text>  had a MIXED or EMPTY model in </xsl:text>
+					<xsl:value-of select="$refmodel"/>
+					<xsl:text>, but it does not any longer.</xsl:text>
+				</li>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:variable>
+	<xsl:variable name="has-became-element-only" select="if ($became-element-only/li) then 1 else 0"/>
 
 
 
@@ -128,6 +161,7 @@
     <xsl:template name="element-tests">
 <!--        <h2>Element Tests</h2>
 -->        <xsl:call-template name="superstructure"/>
+			  <xsl:call-template name="element-only"/>
         <!--<xsl:call-template name="role-change"/>
         <xsl:call-template name="was-el-only"/>
         <xsl:call-template name="now-el-only"/>-->
@@ -234,7 +268,6 @@
         <xsl:if test="$has-elements-were-superstructure=1 or $has-elements-became-superstructure=1">
         <h3>Superstructure Consistency</h3>
         <div class="id-idref" style="border:top;">
-            
             <xsl:if test="$has-elements-were-superstructure=1">
                 <ul>
                     <xsl:copy-of select="$elements-were-superstructure"/>
@@ -245,10 +278,26 @@
                     <xsl:copy-of select="$elements-became-superstructure"/>
                 </ul>
             </xsl:if>
-            
-            
-            
-        </div>
+         </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    <xsl:template name="element-only">
+        <xsl:if test="$has-was-element-only=1 or $has-became-element-only=1">
+        <h3>Element Only or #PCDATA/EMPTY</h3>
+        <div class="id-idref" style="border:top;">
+            <xsl:if test="$has-was-element-only=1">
+                <ul>
+                    <xsl:copy-of select="$was-element-only"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-became-element-only=1">
+                <ul>
+                    <xsl:copy-of select="$became-element-only"/>
+                </ul>
+            </xsl:if>
+         </div>
         </xsl:if>
     </xsl:template>
     
@@ -280,51 +329,4 @@
     </xsl:template>
     
    
-        
-    <xsl:template name="was-el-only">
-        <div class="id-idref" style="border:top;">
-            
-            <h4>Elements from <xsl:value-of select="$refmodel"/> that are no longer "ELEMENT ONLY".</h4>  
-            <ul>
-                <xsl:for-each select="structures/structure[@role!='attribute']">
-                    <xsl:sort order="ascending" select="@name"/>
-                    <xsl:variable name="elname" select="@name"/>
-                    <xsl:variable name="eo" select="if (@element-only) then (@element-only) else 'NONE'"/>
-                    
-                    <xsl:if test="$ref/struct[@name=$elname and @element-only='yes' and @element-only!=$eo and @role!='attribute']">
-                        <li>
-                            <xsl:value-of select="@name"/>
-                            <xsl:text>  had an ELEMENT ONLY model, but it does not any longer.</xsl:text>
-                        </li>
-                    </xsl:if>
-                </xsl:for-each>
-            </ul>
-        </div>
-    </xsl:template>
-    
-    
-    <xsl:template name="now-el-only">
-        <div class="id-idref" style="border:top;">
-            
-            <h4>Elements from <xsl:value-of select="$refmodel"/> that are no longer allow PCDATA.</h4>  
-            <ul>
-                <xsl:for-each select="structures/struct[@role!='attribute']">
-                    <xsl:sort order="ascending" select="@name"/>
-                    <xsl:variable name="elname" select="@name"/>
-                    <xsl:variable name="eo" select="if (@element-only) then (@element-only) else 'NONE'"/>
-                    
-                    <xsl:if test="$ref/struct[@name=$elname and @element-only='no' and @element-only!=$eo and @role!='attribute']">
-                        <li>
-                            <xsl:value-of select="@name"/>
-                            <xsl:text>  had a MIXED or EMPTY model, but it does not any longer.</xsl:text>
-                        </li>
-                    </xsl:if>
-                </xsl:for-each>
-            </ul>
-        </div>
-    </xsl:template>
-    
-    
-
-		
-	</xsl:stylesheet>
+ 	</xsl:stylesheet>

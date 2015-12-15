@@ -395,14 +395,14 @@
    <structure name="person-group" type="element" element-only="no"/>
    <structure name="phone" type="element" element-only="no"/>
    <structure name="preface" type="element" element-only="yes" superstructure="yes"/>
-   <structure name="prefix" type="element" element-only="no"/>
+   <structure name="prefix" type="element" element-only="yes"/> <!-- changed to element only -->
    <structure name="preformat" type="element" role-in-section="block"/>
    <structure name="price" type="element" element-only="no"/>
    <structure name="principal-award-recipient" type="element" element-only="no"/>
    <structure name="principal-investigator" type="element" element-only="no"/>
    <structure name="private-char" type="element" element-only="no"/>
    <structure name="product" type="element" element-only="no"/>
-   <structure name="pub-date" type="element" element-only="yes"/>
+   <structure name="pub-date" type="element" element-only="no"/> <!-- changed from element only -->
    <structure name="pub-history" type="element" element-only="yes"/>
    <structure name="pub-id" type="element" element-only="no"/>
    <structure name="publisher" type="element" element-only="yes"/>
