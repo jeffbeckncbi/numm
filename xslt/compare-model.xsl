@@ -32,6 +32,13 @@
         </tr>
     </xsl:variable>
 
+
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+<!--                             RUN TESTS AS VARIABLES                                       -->
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+
     <xsl:variable name="elements-were-superstructure">
         <xsl:for-each select="numm/structures/structure[@type='element']">
             <xsl:sort order="ascending" select="@name"/>
@@ -107,7 +114,11 @@
 
 
 
-
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+<!--                                PROCESS THE MODEL                                         -->
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
 	<xsl:template match="numm">
         <html>
             <head>
@@ -123,7 +134,9 @@
                 <h3>Summary</h3>
                 <xsl:choose>
                     <xsl:when test="$has-elements-were-superstructure =1 or
-                                    $has-elements-became-superstructure=1">
+                                    $has-elements-became-superstructure=1 or
+												$has-became-element-only=1 or
+												$has-was-element-only">
                         <xsl:value-of select="$model"/>
                         <xsl:text> IS NOT compatible with </xsl:text>
                         <xsl:value-of select="$refmodel"/>
@@ -138,9 +151,6 @@
                        </xsl:otherwise>
                 </xsl:choose>
                 
-                
-                
-                
                 <!--<xsl:call-template name="attribute-tests"/>-->
                 <xsl:call-template name="element-tests"/>
                 
@@ -153,47 +163,21 @@
          </html>
 	</xsl:template>
 
+    
+    
+    
+    
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+<!--                               ATTRIBUTE TESTS                                            -->
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+   
     <xsl:template name="attribute-tests">
-        <h2>Attribute Tests</h2>
-        <xsl:call-template name="id-idref"/>
+         <xsl:call-template name="id-idref"/>
     </xsl:template>
 
-    <xsl:template name="element-tests">
-<!--        <h2>Element Tests</h2>
--->        <xsl:call-template name="superstructure"/>
-			  <xsl:call-template name="element-only"/>
-        <!--<xsl:call-template name="role-change"/>
-        <xsl:call-template name="was-el-only"/>
-        <xsl:call-template name="now-el-only"/>-->
-    </xsl:template>
-    
-    
-    
-    
-    
-    <xsl:template name="added-atts">
-        <div class="added-atts">
-            <h4>Added Attributes</h4>
-            <ul>
-            <xsl:for-each select="structures/structure[@type='attribute']">
-                <xsl:sort order="ascending" select="@name"/>
-                <xsl:variable name="attname" select="@name"/>
-                <xsl:if test="not($ref/structure[@name=$attname])">
-                    <li>
-                        <xsl:value-of select="$attname"/>
-                        <xsl:if test="@att-type">
-                            <xsl:text>, Attriute-Type="</xsl:text>
-                            <xsl:value-of select="@att-type"/>
-                            <xsl:text>"</xsl:text>
-                        </xsl:if>
-                    </li>
-                </xsl:if>
-            </xsl:for-each>
-            </ul>
-        </div>
-    </xsl:template>
-
-    <xsl:template name="id-idref">
+     <xsl:template name="id-idref">
         <div class="id-idref" style="border:top;">
             
             <h4>Attributes from <xsl:value-of select="$refmodel"/> whose attribute types have changed</h4>  
@@ -221,7 +205,64 @@
 
 
 
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+<!--                                 ELEMENT TESTS                                            -->
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+   
+    <xsl:template name="element-tests">
+        	<xsl:call-template name="superstructure"/>
+			<xsl:call-template name="element-only"/>
+    </xsl:template>
     
+    <xsl:template name="superstructure">
+        <xsl:if test="$has-elements-were-superstructure=1 or $has-elements-became-superstructure=1">
+        <h3>Superstructure Consistency</h3>
+        <div class="id-idref" style="border:top;">
+            <xsl:if test="$has-elements-were-superstructure=1">
+                <ul>
+                    <xsl:copy-of select="$elements-were-superstructure"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-elements-became-superstructure=1">
+                <ul>
+                    <xsl:copy-of select="$elements-became-superstructure"/>
+                </ul>
+            </xsl:if>
+         </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    <xsl:template name="element-only">
+        <xsl:if test="$has-was-element-only=1 or $has-became-element-only=1">
+        <h3>Element Only or #PCDATA/EMPTY</h3>
+        <div class="id-idref" style="border:top;">
+            <xsl:if test="$has-was-element-only=1">
+                <ul>
+                    <xsl:copy-of select="$was-element-only"/>
+                </ul>
+            </xsl:if>
+           <xsl:if test="$has-became-element-only=1">
+                <ul>
+                    <xsl:copy-of select="$became-element-only"/>
+                </ul>
+            </xsl:if>
+         </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    
+	 
+	 
+	 
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
+<!--                           ADDED STRUCTURES (REPORT ONLY)                                 -->
+<!-- **************************************************************************************** -->
+<!-- **************************************************************************************** -->
 
     <xsl:template name="added-els">
         <div class="added-atts">
@@ -264,69 +305,28 @@
         </div>
     </xsl:template>
     
-    <xsl:template name="superstructure">
-        <xsl:if test="$has-elements-were-superstructure=1 or $has-elements-became-superstructure=1">
-        <h3>Superstructure Consistency</h3>
-        <div class="id-idref" style="border:top;">
-            <xsl:if test="$has-elements-were-superstructure=1">
-                <ul>
-                    <xsl:copy-of select="$elements-were-superstructure"/>
-                </ul>
-            </xsl:if>
-           <xsl:if test="$has-elements-became-superstructure=1">
-                <ul>
-                    <xsl:copy-of select="$elements-became-superstructure"/>
-                </ul>
-            </xsl:if>
-         </div>
-        </xsl:if>
-    </xsl:template>
-    
-    
-    <xsl:template name="element-only">
-        <xsl:if test="$has-was-element-only=1 or $has-became-element-only=1">
-        <h3>Element Only or #PCDATA/EMPTY</h3>
-        <div class="id-idref" style="border:top;">
-            <xsl:if test="$has-was-element-only=1">
-                <ul>
-                    <xsl:copy-of select="$was-element-only"/>
-                </ul>
-            </xsl:if>
-           <xsl:if test="$has-became-element-only=1">
-                <ul>
-                    <xsl:copy-of select="$became-element-only"/>
-                </ul>
-            </xsl:if>
-         </div>
-        </xsl:if>
-    </xsl:template>
-    
-    
-    
-    <xsl:template name="role-change">
-        <div class="id-idref" style="border:top;">
-            
-            <h4>Elements from <xsl:value-of select="$refmodel"/> whose roles have changed</h4>  
+
+   <xsl:template name="added-atts">
+        <div class="added-atts">
+            <h4>Added Attributes</h4>
             <ul>
-                <xsl:for-each select="structures/struct[@role!='attribute']">
-                    <xsl:sort order="ascending" select="@name"/>
-                    <xsl:variable name="elname" select="@name"/>
-                    <xsl:variable name="rolename" select="if (@role) then (@role) else 'NONE'"/>
-                    
-                    <xsl:if test="$ref/struct[@name=$elname and @role and @role!=$rolename and @role!='attribute']">
-                        <li>
-                            <xsl:value-of select="@name"/>
-                            <xsl:text> role  was "</xsl:text>
-                            <xsl:value-of select="$ref/struct[@name=$elname]/@role"/>
-                            <xsl:text>" but is now "</xsl:text>
-                            <xsl:value-of select="$rolename"/>
-                            <xsl:text>".</xsl:text>
-                        </li>
-                    </xsl:if>
-                </xsl:for-each>
+            <xsl:for-each select="structures/structure[@type='attribute']">
+                <xsl:sort order="ascending" select="@name"/>
+                <xsl:variable name="attname" select="@name"/>
+                <xsl:if test="not($ref/structure[@name=$attname])">
+                    <li>
+                        <xsl:value-of select="$attname"/>
+                        <xsl:if test="@att-type">
+                            <xsl:text>, Attriute-Type="</xsl:text>
+                            <xsl:value-of select="@att-type"/>
+                            <xsl:text>"</xsl:text>
+                        </xsl:if>
+                    </li>
+                </xsl:if>
+            </xsl:for-each>
             </ul>
         </div>
     </xsl:template>
-    
-   
+
+	 
  	</xsl:stylesheet>
