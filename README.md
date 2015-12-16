@@ -21,6 +21,14 @@ This transform will compare a numm model XML for compatibility against a referen
 ```
 By default the JATS 1.1d3 numm model will be used from this GitHub repository, but you can pass in a $refpath and $reffile to the transform to compare your numm model against any reference model you like. 
 
+Running this transform on a numm xml model will compare it with the reference model. If the model is compatible with the reference model, the tranform will return a message that the nodels are compatible. If any of the tests fail, it will return a message that the model is not compatible with the reference model and give details on the specific tests that have failed. 
+
+
+
+
+
+
+
 There is one more stylesheet-level 
 ```xml
 <xsl:param name="report" select="'no'"/>
