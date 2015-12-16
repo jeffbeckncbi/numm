@@ -19,4 +19,11 @@ This transform will compare a numm model XML for compatibility against a referen
           
 <xsl:variable name="refdoc" select="doc(concat($refpath,$reffile))"/>
 ```
-By default the JATS 1.1d3 numm model will be used from this GitHub reposityr, but you can pass in a $refpath and $reffile.
+By default the JATS 1.1d3 numm model will be used from this GitHub repository, but you can pass in a $refpath and $reffile to the transform to compare your numm model against any reference model you like. 
+
+There is one more stylesheet-level 
+```xml
+<xsl:param name="report" select="'no'"/>
+```
+$report will turn on the new objects report, which lists elements and attributes in the model that are not in the reference model.
+
