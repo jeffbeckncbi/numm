@@ -14,20 +14,20 @@
         version="2.0" 
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  >
-	
-	
-	<xsl:output
+   
+   
+   <xsl:output
         method="html"
         omit-xml-declaration="yes"
         indent="yes"
-		  />
+        />
 
 
 
     <xsl:param name="refpath" select="'https://raw.githubusercontent.com/jeffbeckncbi/numm/master/models/'"/>
     <xsl:param name="reffile" select="'jats1.xml'"/>
-	 <xsl:param name="report" select="'no'"/>
-	 
+    <xsl:param name="report" select="'no'"/>
+    
     <xsl:variable name="refdoc" select="doc(concat($refpath,$reffile))"/>
     <xsl:variable name="ref" select="$refdoc/numm/structures"/>
 
@@ -86,8 +86,8 @@
                     <xsl:text>  was a SUPERSTRUCTURE element in </xsl:text>
                     &refmodel;
                     <xsl:text> model but is not in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
             </xsl:if>
         </xsl:for-each>
@@ -125,8 +125,8 @@
                     <xsl:text>  had an ELEMENT ONLY model in </xsl:text>
                     &refmodel;
                     <xsl:text>, but it has a #PCDATA/EMPTY model in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -145,8 +145,8 @@
                     <xsl:text>  had a MIXED or EMPTY model in </xsl:text>
                     &refmodel;
                     <xsl:text>, but it has an ELEMENT model in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -165,8 +165,8 @@
                     <xsl:text>  had a section model in </xsl:text>
                     &refmodel;
                     <xsl:text>, but it does not in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -185,8 +185,8 @@
                     <xsl:text>  did not have a section model in </xsl:text>
                     &refmodel;
                     <xsl:text>, but it has a section model in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -205,8 +205,8 @@
                     <xsl:text>  was an element that held alternatives in </xsl:text>
                     &refmodel;
                     <xsl:text>, but it can not in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -225,8 +225,8 @@
                     <xsl:text>  was not an element that held alternatives in </xsl:text>
                     &refmodel;
                     <xsl:text>, but holds alternatives in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -245,8 +245,8 @@
                     <xsl:text>  pointed to another element with @rid in </xsl:text>
                     &refmodel;
                     <xsl:text>, but the @rid has been removed in </xsl:text>
-						  &model;
-						  <xsl:text>.</xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
                 </li>
                 </xsl:if>
             </xsl:for-each>
@@ -260,7 +260,7 @@
 <!--                                PROCESS THE MODEL                                         -->
 <!-- **************************************************************************************** -->
 <!-- **************************************************************************************** -->
-	<xsl:template match="numm">
+   <xsl:template match="numm">
         <html>
             <head>
                 <title>Model Compare</title>
@@ -276,14 +276,14 @@
                 <xsl:choose>
                     <xsl:when test="$has-elements-were-superstructure =1 or
                                     $has-elements-became-superstructure=1 or
-												$has-became-element-only=1 or
-												$has-was-element-only or 
-												$has-was-alternatives=1 or 
-												$has-became-alternatives=1 or
-												$has-was-sec-model=1 or 
-												$has-became-sec-model=1 or 
-												$has-had-rid=1 or 
-												$has-attribute-change-type=1">
+                                    $has-became-element-only=1 or
+                                    $has-was-element-only or 
+                                    $has-was-alternatives=1 or 
+                                    $has-became-alternatives=1 or
+                                    $has-was-sec-model=1 or 
+                                    $has-became-sec-model=1 or 
+                                    $has-had-rid=1 or 
+                                    $has-attribute-change-type=1">
                         &model;
                         <xsl:text> IS NOT compatible with </xsl:text>
                         &refmodel;
@@ -294,22 +294,21 @@
                            <xsl:text> is compatible with </xsl:text>
                            &refmodel;
                            <xsl:text>. </xsl:text>
-                           
-                       </xsl:otherwise>
+                        </xsl:otherwise>
                 </xsl:choose>
                 
                 <xsl:call-template name="attribute-tests"/>
                 <xsl:call-template name="element-tests"/>
                 
                 <!-- added items report below -->
-					 <xsl:if test ="$report='yes'">
-                	<h3>Added Structures Are Listed Below</h3>
-                	<xsl:call-template name="added-els"/>
-                	<xsl:call-template name="added-atts"/>
-                	</xsl:if>
+                <xsl:if test ="$report='yes'">
+                   <h3>Added Structures Are Listed Below</h3>
+                   <xsl:call-template name="added-els"/>
+                   <xsl:call-template name="added-atts"/>
+                   </xsl:if>
             </body>
          </html>
-	</xsl:template>
+   </xsl:template>
 
     
     
@@ -333,7 +332,7 @@
                     <xsl:copy-of select="$attribute-change-type"/>
                 </ul>
           </div>
-		  </xsl:if>
+        </xsl:if>
     </xsl:template>
 
 
@@ -346,11 +345,11 @@
 <!-- **************************************************************************************** -->
    
     <xsl:template name="element-tests">
-        	<xsl:call-template name="superstructure"/>
-			<xsl:call-template name="element-only"/>
-			<xsl:call-template name="section-model"/>
-			<xsl:call-template name="alternatives-model"/>
-			<xsl:call-template name="rid-check"/>
+           <xsl:call-template name="superstructure"/>
+         <xsl:call-template name="element-only"/>
+         <xsl:call-template name="section-model"/>
+         <xsl:call-template name="alternatives-model"/>
+         <xsl:call-template name="rid-check"/>
     </xsl:template>
     
     <xsl:template name="superstructure">
@@ -511,5 +510,5 @@
         </div>
     </xsl:template>
 
-	 
- 	</xsl:stylesheet>
+    
+    </xsl:stylesheet>
