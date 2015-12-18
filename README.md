@@ -38,10 +38,11 @@ Any element defined as a Superstructure element in the reference model must be a
 
 6. **"Points with @rid" Changes:** Some elements reference other elements in the same XML document with an IDREF attribute. If an element in the reference model can point to other elements, this property should be maintained in the extension. If it is not maintained, then the extension is not conforming with the reference model. Pointers from elements in the reference model MAY BE added to those elements in the extension and the extension would still conform. 
 
-7. **Role in Section Changes:** Elements that are allowed to appear in sections fit into four categories: opening metadata (Head elements), block-level items (paragraphs, lists, etc), repeatable recursive sections, and closing metadata (Tail elements). If an element has been assigned a "Role in Section" in the reference model ...[need to define the rules here and add the tests]
-
-
-
+7. **Role in Section Changes:** Elements that are allowed to appear in sections fit into four categories: opening metadata (Head elements), block-level items (paragraphs, lists, etc), repeatable recursive sections, and closing metadata (Tail elements). 
+  - Elements may GAIN a role-in-section.
+  - Elements in the reference model with a role-in-section may be removed from the extension. 
+  - An element may lose its role-in-section, but it may not change values for role-in-section. 
+  - An extension must have at least one element whose role-in-section="section" 
 
 
 There is one more stylesheet-level 
