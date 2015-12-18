@@ -38,10 +38,6 @@
       <h3>Section Model Changes</h3>
       <div class="id-idref" style="border:top;">
          <ul>
-            <li><b>&lt;sec&gt;</b>  had a section model in JATS 1.1d3, but it does not in BITS 1.0 Test.
-            </li>
-         </ul>
-         <ul>
             <li><b>&lt;rb&gt;</b>  did not have a section model in JATS 1.1d3, but it has a section model in BITS 1.0 Test.
             </li>
          </ul>
@@ -61,6 +57,14 @@
       <div class="id-idref" style="border:top;">
          <ul>
             <li><b>&lt;aff&gt;</b>  pointed to another element with @rid in JATS 1.1d3, but the @rid has been removed in BITS 1.0 Test.
+            </li>
+         </ul>
+      </div>
+      <h3>Changes to "Role in Section"</h3>
+      <div class="id-idref" style="border:top;">
+         <ul>BITS 1.0 Test must contain at least one element with a section model whose role in a section is "section".</ul>
+         <ul>
+            <li><b>&lt;sec-meta&gt;</b>  had a role-in-section value of "head" in JATS 1.1d3, but role-in-section has changed to "block" in BITS 1.0 Test.
             </li>
          </ul>
       </div>

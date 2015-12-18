@@ -253,6 +253,30 @@
         </xsl:variable>
     <xsl:variable name="has-had-rid" select="if ($had-rid/li) then 1 else 0"/>
 
+    <xsl:variable name="no-section-role" select="if (numm/structures/structure[@role-in-section='section' and @section-model='yes']) then 0 else 1"/>
+
+    <xsl:variable name="role-in-sec-change">
+        <xsl:for-each select="numm/structures/structure[@type='element' and @role-in-section]">
+            <xsl:sort order="ascending" select="@name"/>
+            <xsl:variable name="elname" select="@name"/>
+            <xsl:variable name="ris" select="@role-in-section"/>
+            <xsl:if test="$ref/structure[@name=$elname and normalize-space(@role-in-section) and $ris!=@role-in-section]">
+                <li>
+                    &nme;
+                    <xsl:text>  had a role-in-section value of "</xsl:text>
+						  <xsl:value-of select="$ref/structure[@name=$elname]/@role-in-section"/>
+						  <xsl:text>" in </xsl:text>
+                    &refmodel;
+                    <xsl:text>, but role-in-section has changed to "</xsl:text>
+						  <xsl:value-of select="$ris"/>
+						  <xsl:text>" in </xsl:text>
+                    &model;
+                    <xsl:text>.</xsl:text>
+                </li>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+    <xsl:variable name="has-role-in-sec-change" select="if ($role-in-sec-change/li) then 1 else 0"/>
 
 
 <!-- **************************************************************************************** -->
@@ -283,7 +307,9 @@
                                     $has-was-sec-model=1 or 
                                     $has-became-sec-model=1 or 
                                     $has-had-rid=1 or 
-                                    $has-attribute-change-type=1">
+                                    $has-attribute-change-type=1 or
+                                    $no-section-role=1 or
+												$has-role-in-sec-change=1">
                         &model;
                         <xsl:text> IS NOT compatible with </xsl:text>
                         &refmodel;
@@ -345,11 +371,12 @@
 <!-- **************************************************************************************** -->
    
     <xsl:template name="element-tests">
-           <xsl:call-template name="superstructure"/>
-         <xsl:call-template name="element-only"/>
-         <xsl:call-template name="section-model"/>
-         <xsl:call-template name="alternatives-model"/>
-         <xsl:call-template name="rid-check"/>
+        <xsl:call-template name="superstructure"/>
+        <xsl:call-template name="element-only"/>
+        <xsl:call-template name="section-model"/>
+        <xsl:call-template name="alternatives-model"/>
+        <xsl:call-template name="rid-check"/>
+        <xsl:call-template name="role-in-section"/>
     </xsl:template>
     
     <xsl:template name="superstructure">
@@ -433,6 +460,26 @@
             <ul>
                <xsl:copy-of select="$had-rid"/>
             </ul>
+        </div>
+        </xsl:if>
+    </xsl:template>
+    
+    
+    <xsl:template name="role-in-section">
+        <xsl:if test="$no-section-role=1 or $has-role-in-sec-change">
+        <h3>Changes to "Role in Section"</h3>
+        <div class="id-idref" style="border:top;">
+           <xsl:if test="$no-section-role=1">
+              <ul>
+              &model;
+              <xsl:text> must contain at least one element with a section model whose role in a section is "section".</xsl:text>
+              </ul>
+              </xsl:if>
+           <xsl:if test="$has-role-in-sec-change=1">
+             <ul>
+                <xsl:copy-of select="$role-in-sec-change"/>
+             </ul>
+             </xsl:if>
         </div>
         </xsl:if>
     </xsl:template>

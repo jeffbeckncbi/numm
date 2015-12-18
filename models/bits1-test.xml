@@ -424,10 +424,10 @@
    <structure name="sans-serif" type="element" element-only="no"/>
    <structure name="sc" type="element" element-only="no"/>
    <structure name="season" type="element" element-only="no"/>
-   <structure name="sec" type="element" role-in-section="section" section-model="no"
-              element-only="yes"/> <!-- changed from section model -->
-   <structure name="sec-meta" type="element" superstructure="yes" role-in-section="head"
-              element-only="yes"/>
+   <structure name="sec" type="element" section-model="yes"
+              element-only="yes"/> <!-- changed from section model; role-in-section="section"  -->
+   <structure name="sec-meta" type="element" superstructure="yes" role-in-section="block"
+              element-only="yes"/> <!-- changed role in section -->
    <structure name="see" type="element" points-with-rid="yes" element-only="no"/>
    <structure name="see-also" type="element" points-with-rid="yes" element-only="no"/>
    <structure name="see-also-entry" type="element" element-only="no" points-with-rid="yes"/>
